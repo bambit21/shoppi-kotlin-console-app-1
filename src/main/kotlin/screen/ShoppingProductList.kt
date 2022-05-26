@@ -49,17 +49,18 @@ class ShoppingProductList(private val selectedCategory: String) : Screen() {
         )
 
         val selectedIndex = readLine().getNotEmptyInt()
+        val shoppingCart = ShoppingCart()
         categoryProducts.getOrNull(selectedIndex)?.let { product ->
             CartItems.addProduct(product)
             println("=> 장바구니로 이동하시려면 # 을, 계속 쇼핑하시려면 * 를 입력해주세요.")
             val answer = readLine().getNotEmptyString()
             if (answer == "#") {
-                val shoppingCart = ShoppingCart()
                 shoppingCart.showCartItems()
             } else if (answer == "*") {
                 showProducts()
             } else {
-                // TODO 그 외 값을 입력한 경우에 대한 처리
+                println("목록에 없는 옵션입니다. 다시 입력해주세요.")
+                shoppingCart.showCartItems()
             }
         } ?: kotlin.run {
             println("$selectedIndex 번은 목록에 없는 상품 번호 입니다. 다시 입력해주세요.")
