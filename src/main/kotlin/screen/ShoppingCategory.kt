@@ -1,5 +1,7 @@
 package screen
 
+import extensions.getNotEmptyString
+
 /*
 Step 1. 장바구니에 추가한 상품 관리
 Step 2. 사용자 입력값 요청 처리 공통화
@@ -15,16 +17,7 @@ class ShoppingCategory {
         }
         println("=> 장바구니로 이동하시려면 #을 입력해주세요.")
 
-        var selectedCategory = readLine()
-        // readLine() 은 nullable String 타입이다.
-        // 즉, 입력값을 읽어들이지 못하면 null 이 될 수 있다.
-        // 또한 사용자는 아무것도 입력하지않고 화이트 스페이스만 입력할수도 있다.
-        // 이를 모두 대응하는 방법은 사용자가 어떤 값이든 무언가를 입력할 때까지 재요청하는 것이다.
-        while (selectedCategory.isNullOrBlank()) {
-            println("값을 입력해주세요.")
-            selectedCategory = readLine()
-        }
-
+        val selectedCategory = readLine().getNotEmptyString()
         if (selectedCategory == "#") {
             val shoppingCart = ShoppingCart()
             shoppingCart.showCartItems()
